@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>这个天才又来啦❤️</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/normalize/7.0.0/normalize.css">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+<div id="app">
+    <div class="nav-bar">
+        <div class="nav-select">
+            <router-link to="/">首页</router-link>
+            <router-link to="/shopping">我的收藏</router-link>
+            <router-link to="/sign_in">注册</router-link>
+            <router-link to="/login">登录</router-link>
+            <router-link to="/admin">后台管理业</router-link>
+        </div>
+        <div class="content">
+            <router-view></router-view>
+        </div>
+    </div>
+</div>
+<template id="tpl-home-page">
+    <div>
+        <div class="home_page">
+            <div class="book_logo">
+                <h2>提莫图书</h2>
+            </div>
+            <div class="search_bar">
+                <form @submit.prevent="search(input_item)">
+                    <input type="text" class="search_input" placeholder="书名" v-model="input_item">
+                    <button id="search-button" type="submit">搜索</button>
+                </form>
+            </div>
+        </div>
+        <div v-for="item in search_result" class="wrapper">
+            <div class="x-left">
+                <img :src="item.image">
+            </div>
+            <div class="x-right">
+                <p>书名: {{item.title}}</p>
+                <p>作者: {{item.author}}</p>
+                <p>价格: {{item.price}}</p>
+                <p>内容简介: {{item.content}}</p>
+            </div>
+        </div>
+        <h3>新书列表</h3>
+        <div>
+            <div v-for="item in new_book_l" class="wrapper">
+                <div class="x-left">
+                    <img :src="item.image">
+                </div>
+                <div class="x-right">
+                    <p>书名: {{item.title}}</p>
+                    <p>作者: {{item.author}}</p>
+                    <p>价格: {{item.price}}</p>
+                    <p>ID: {{item.id}}</p>
+                    <p>内容简介: {{item.content}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template id="tpl-shop-page">
+    <div>
+        <h1>购物管理</h1>
+    </div>
+</template>
+<template id="tpl-sign-page">
+    <div>
+        <h1>注册</h1>
+    </div>
+</template>
+<template id="tpl-login-page">
+    <div>
+        <h1>登录</h1>
+    </div>
+</template>
+<template id="tpl-admin-page">
+    <div class="content_form">
+        <h1 style="color: #898989">管理面板</h1>
+        <div class="form_input">
+            <form @submit.prevent="trigger('add_up',product_list_item)">
+                <input type="text" placeholder="请输入书名" v-model="product_list_item.title">
+                <input type="text" placeholder="请输入作者" v-model="product_list_item.author">
+                <input type="text" placeholder="请输入定价" v-model="product_list_item.price">
+                <input type="text" placeholder="图书编号" v-model="product_list_item.ISbn"> <br>
+                <input type="text" placeholder="页数" v-model="product_list_item.page_number">
+                <input type="text" placeholder="出版社" v-model="product_list_item.press">
+                <input type="text" placeholder="出版日期" v-model="product_list_item.date">
+                <input type="text" placeholder="封面图片路径" v-model="product_list_item.image">
+                <textarea placeholder="作者介绍" cols="58" rows="5" v-model="product_list_item.author_show"></textarea>
+                <textarea placeholder="内容介绍" cols="58" rows="5" v-model="product_list_item.content"></textarea>
+                <br>
+                <button type="submit">提交</button>
+            </form>
+        </div>
+        <div class="one_1">
+        <h3>图书列表</h3>
+        <div v-for=" item in plist" class="wrapper">
+            <div class="x-left">
+                <img :src="item.image">
+            </div>
+            <div class="x-right">
+                <p>书名: {{item.title}}</p>
+                <p>作者: {{item.author}}</p>
+                <p>价格: {{item.price}}</p>
+                <p>ID: {{item.id}}</p>
+                <p>内容简介: {{item.content}}</p>
+            </div>
+            <div class="x_right">
+                <p>
+                    <button @click="trigger('to_del',item.id)">删除</button>
+                </p>
+                <p>
+                    <button @click="filler_page(item)" >更新</button>
+                </p>
+                <p>
+                    <button @click="[setbook(item.id),item.new_book = !item.new_book]" :class="[item.new_book?'newB':'oldB']">设置为新书</button>
+                </p>
+                <p>
+                    <button @click="[set_hot_book(item.id),item.hot_book=!item.hot_book]" :class="[item.hot_book?'newB':'oldB']">设置为热书</button>
+                </p>
+                <p>
+                    <button @click="[set_tex_book(item.id),item.tex_book= !item.tex_book]" :class="[item.tex_book?'newB':'oldB']">设置为电子书</button>
+                </p>
+            </div>
+        </div>
+        </div>
+        <div class="one_2">
+            <h3>新书列表</h3>
+            <div v-for=" item in nlist" class="wrapper">
+                <div class="x-left">
+                    <img :src="item.image">
+                </div>
+                <div class="x-right">
+                    <p>书名: {{item.title}}</p>
+                    <p>作者: {{item.author}}</p>
+                    <p>价格: {{item.price}}</p>
+                    <p>ID: {{item.id}}</p>
+                    <p>内容简介: {{item.content}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="one_2">
+            <h3>热书列表</h3>
+            <div v-for=" item in hlist" class="wrapper">
+                <div class="x-left">
+                    <img :src="item.image">
+                </div>
+                <div class="x-right">
+                    <p>书名: {{item.title}}</p>
+                    <p>作者: {{item.author}}</p>
+                    <p>价格: {{item.price}}</p>
+                    <p>ID: {{item.id}}</p>
+                    <p>内容简介: {{item.content}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="one_2">
+            <h3>电子书书列表</h3>
+            <div v-for=" item in tlist" class="wrapper">
+                <div class="x-left">
+                    <img :src="item.image">
+                </div>
+                <div class="x-right">
+                    <p>书名: {{item.title}}</p>
+                    <p>作者: {{item.author}}</p>
+                    <p>价格: {{item.price}}</p>
+                    <p>ID: {{item.id}}</p>
+                    <p>内容简介: {{item.content}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<script src="https://cdn.bootcss.com/vue/2.4.4/vue.js"></script>
+<script src="https://cdn.bootcss.com/vue-router/2.7.0/vue-router.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.16.2/axios.js"></script>
+<script src="local.js"></script>
+<script src="admin.js"></script>
+<script src="home.js"></script>
+<script src="vue-router.js"></script>
+
+
+</body>
+</html>

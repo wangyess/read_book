@@ -1,0 +1,222 @@
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #e7e7e7;
+}
+
+.nav-bar {
+    width: 100%;
+    height: 50px;
+    background-color: #6e6e6e;
+}
+
+.nav-select {
+    width: 80%;
+    margin: 0 auto;
+    font-size: 20px;
+    line-height: 2.5em;
+}
+
+.content {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.form_input {
+
+}
+
+a {
+    color: #f3f3f3;
+    padding: 11px 20px;
+    text-decoration: none;
+}
+
+a:hover {
+    color: white;
+    background-color: #d0d0d0;
+}
+
+img {
+    width: 80px;
+    height: 120px;
+}
+
+input {
+    width: 240px;
+    height: 30px;
+    padding: 5px 5px;
+}
+
+button {
+    border: 1px solid #e9e9e9;
+    width: 30px;
+    height: 160px;
+    position: absolute;
+    right: 10%;
+    top: 130px;
+    background-color: white;
+}
+
+button:hover {
+    color: white;
+    background-color: #cacaca;
+}
+
+textarea {
+    margin-left: 2px;
+    margin-top: 5px;
+    padding: 2px 1px;
+    border: 1px solid #cbcbcb;
+}
+
+.wrapper {
+    width: 100%;
+    height: 150px;
+    font-size: 0;
+    margin-top: 2px;
+    overflow: hidden;
+    background-color: #f4f4f4;
+}
+
+.wrapper_1 {
+    width: 100%;
+    margin-top: 2px;
+    background-color: #f4f4f4;
+}
+
+.x-left {
+    width: 10%;
+    height: 125px;
+    font-size: 14px;
+    margin-top: 15px;
+    margin-left: 20px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.x-right {
+    width: 70%;
+    height: 125px;
+    font-size: 14px;
+    line-height: 1.5em;
+    margin-top: 15px;
+    vertical-align: top;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.x_right {
+    width: 10%;
+    height: 120px;
+    font-size: 14px;
+    vertical-align: top;
+    display: inline-block;
+    margin-top: 15px;
+    padding-left: 20px;
+}
+
+.x_right button {
+    position: static;
+    width: 80px;
+    height: 20px;
+}
+
+.newB {
+    color: #dddddd;
+    background-color: #b2b2b2;
+}
+
+.one_1 {
+    height: 500px;
+    overflow: scroll;
+}
+
+.one_2 {
+    height: 500px;
+    overflow: scroll;
+}
+
+/*...........................................................上面是后台面板中的样式...........................*/
+.home_page {
+    font-size: 0;
+    width: 100%;
+    height: 150px;
+    background-color: #f4f4f4;
+}
+
+#search-button {
+    position: static;
+    width: 150px;
+    height: 30px;
+}
+
+.search_bar,
+.book_logo {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 40px;
+}
+
+.book_logo {
+    width: 200px;
+    color: #8e8e8e;
+    font-size: 22px;
+}
+
+.search_bar {
+    border: 1px solid #a3a3a3;
+    width: 600px;
+    font-size: 16px;
+}
+
+.search_bar input {
+    width: 80%;
+    float: left;
+    outline: none;
+}
+
+#search-button {
+    color: #eaeaea;
+    border: 0;
+    width: 20%;
+    float: right;
+    outline: none;
+    background-color: #9a9a9a;
+}
+
+#search-button:hover {
+    color: white;
+    background-color: #717171;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
