@@ -1,9 +1,6 @@
 ;(function () {
     'use strict';
     window.Event = new Vue();
-    var shopping = {
-        template: '#tpl-shop-page'
-    };
     var sign_in = {
         template: '#tpl-sign-page'
     };
@@ -37,7 +34,7 @@
         routes: routes
     });
     //...................................................实例
-    var app = new Vue({
+    window.app = new Vue({
         el: '#app',
         router: router,
         data: {
@@ -48,9 +45,9 @@
             //热书
             hot_book_list: [],
             //电子书
-            tex_book_list: []
-
-
+            tex_book_list: [],
+            //购物车
+            shop_list:[]
         },
         mounted: function () {
             //新书
@@ -59,10 +56,12 @@
             this.hot_book_list = s.get('hot_book_list') || [];
             //电子书
             this.tex_book_list = s.get('tex_book_list') || [];
-
+            //购物车
+            this.shop_list=s.get('shop_list') || [];
+            //全部商品
             this.product_list = s.get('product_list') || [];
             this.product_last_id = s.get('product_last_id') || 0;
-            this.protal();
+            // this.protal();
             var me = this;
             Event.$on('add_up', function (data) {
                 me.add_or_updata(data);
@@ -85,13 +84,17 @@
             //电子书
             Event.$on('set_text_book', function (id) {
                 me.set_tex_book_list(id);
-            })
+            });
+            //购物车
+            Event.$on('add_shop_l',function (id) {
+                me.add_shop_list(id);
+            });
         },
         methods: {
             //...................................让后台获取到product_list
-            protal: function () {
-                Event.$emit('receive', this.product_list, this.new_book_list, this.hot_book_list, this.tex_book_list);
-            },
+            // protal: function () {
+            //     Event.$emit('receive', this.product_list, this.new_book_list, this.hot_book_list, this.tex_book_list);
+            // },
             //..................................使首页搜索出来的对象集合  传给home.js的数组以便 显示在页面上
             search_all: function (data) {
                 var a = this.search_al(data);
@@ -215,6 +218,17 @@
             up_tex_book_list: function () {
                 s.set('tex_book_list', this.tex_book_list);
             },
+
+            //............................................购物车
+            add_shop_list:function (id) {
+                 var item_index=this.find_index(id);
+                 if(item_index!==-1){
+                     this.shop_list.push(Object.assign({},this.product_list[item_index]));
+                 }
+            },
+            up_add_shop_list:function () {
+                s.set('shop_list',this.shop_list);
+            }
         },
         watch: {
             product_list: {
@@ -239,6 +253,12 @@
                 deep: true,
                 handler: function () {
                     this.up_tex_book_list();
+                }
+            },
+            shop_list:{
+                deep:true,
+                handler:function () {
+                    this.up_add_shop_list();
                 }
             }
         }

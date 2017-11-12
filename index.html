@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>这个天才又来啦❤️</title>
     <link rel="stylesheet" href="https://cdn.bootcss.com/normalize/7.0.0/normalize.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
@@ -14,7 +15,7 @@
     <div class="nav-bar">
         <div class="nav-select">
             <router-link to="/">首页</router-link>
-            <router-link to="/shopping">我的收藏</router-link>
+            <router-link to="/shopping">购物车</router-link>
             <router-link to="/sign_in">注册</router-link>
             <router-link to="/login">登录</router-link>
             <router-link to="/admin">后台管理业</router-link>
@@ -48,18 +49,68 @@
                 <p>内容简介: {{item.content}}</p>
             </div>
         </div>
-        <h3>新书列表</h3>
-        <div>
-            <div v-for="item in new_book_l" class="wrapper">
-                <div class="x-left">
-                    <img :src="item.image">
+        <h2 style="margin: 15px 0;color: #656565">新书列表</h2>
+        <div v-for="item in new_book_l" class="wrapper_2">
+            <div class="row col-row">
+                <div class="t-book">
+                    <router-link to="/admin">
+                        <img :src="item.image">
+                    </router-link>
                 </div>
-                <div class="x-right">
-                    <p>书名: {{item.title}}</p>
-                    <p>作者: {{item.author}}</p>
-                    <p>价格: {{item.price}}</p>
-                    <p>ID: {{item.id}}</p>
-                    <p>内容简介: {{item.content}}</p>
+                <div class="tt-book">
+                    <span>书名: {{item.title}}</span>
+                    <span>作者: {{item.author}}</span>
+                </div>
+                <hr>
+                <div class="ttt-book">
+                    <span>$: {{item.price}}</span> &nbsp;
+                    <button id="add_button" type="button" @click="add_shop(item.id)"><i class="fa fa-shopping-cart yyj"></i></button>
+                </div>
+            </div>
+        </div>
+        <h2 style="margin: 15px 0 ;color: #656565">图书资讯</h2>
+        <div class="book-in">
+            <p>这世界只有两种人：一种是写诗的诗人，另一种是不写诗的诗人</p>
+            <p>楚尘文化</p>
+            <p>作者丨楚尘 十六岁那年的夏天，我第一次去南京。 在此之前，我从未出过远门。 我没有被南京长江大桥和波涛汹涌的长江所震慑，但我被大桥尽头若隐若现的一座又一座小山惊到了，我涨红着脸，压抑不住内心的兴奋。</p>
+        </div>
+
+        <h2 style="margin: 15px 0 ;color: #656565">热书推荐</h2>
+        <div v-for="item in hot_book_l" class="wrapper_2">
+            <div class="row col-row">
+                <div class="t-book">
+                    <router-link to="/admin">
+                        <img :src="item.image">
+                    </router-link>
+                </div>
+                <div class="tt-book">
+                    <span>书名: {{item.title}}</span>
+                    <span>作者: {{item.author}}</span>
+                </div>
+                <hr>
+                <div class="ttt-book">
+                    <span>$: {{item.price}}</span> &nbsp;
+                    <button id="add_button_1" type="button"><i class="fa fa-shopping-cart yyj"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <h2 style="margin: 15px 0 ;color: #656565">小说推荐</h2>
+        <div v-for="item in tex_book_l" class="wrapper_2">
+            <div class="row col-row">
+                <div class="t-book">
+                    <router-link to="/admin">
+                        <img :src="item.image">
+                    </router-link>
+                </div>
+                <div class="tt-book">
+                    <span>书名: {{item.title}}</span>
+                    <span>作者: {{item.author}}</span>
+                </div>
+                <hr>
+                <div class="ttt-book">
+                    <span>$: {{item.price}}</span> &nbsp;
+                    <button id="add_button_2" type="button"><i class="fa fa-shopping-cart yyj"></i></button>
                 </div>
             </div>
         </div>
@@ -67,7 +118,18 @@
 </template>
 <template id="tpl-shop-page">
     <div>
-        <h1>购物管理</h1>
+        <div v-for="item in product_shop" class="wrapper">
+            <div class="x-left">
+                <img :src="item.image">
+            </div>
+            <div class="x-right">
+                <p>书名: {{item.title}}</p>
+                <p>作者: {{item.author}}</p>
+                <p>价格: {{item.price}}</p>
+                <p>ID: {{item.id}}</p>
+                <p>内容简介: {{item.content}}</p>
+            </div>
+        </div>
     </div>
 </template>
 <template id="tpl-sign-page">
@@ -100,36 +162,42 @@
             </form>
         </div>
         <div class="one_1">
-        <h3>图书列表</h3>
-        <div v-for=" item in plist" class="wrapper">
-            <div class="x-left">
-                <img :src="item.image">
+            <h3>图书列表</h3>
+            <div v-for=" item in plist" class="wrapper">
+                <div class="x-left">
+                    <img :src="item.image">
+                </div>
+                <div class="x-right">
+                    <p>书名: {{item.title}}</p>
+                    <p>作者: {{item.author}}</p>
+                    <p>价格: {{item.price}}</p>
+                    <p>ID: {{item.id}}</p>
+                    <p>内容简介: {{item.content}}</p>
+                </div>
+                <div class="x_right">
+                    <p>
+                        <button @click="trigger('to_del',item.id)">删除</button>
+                    </p>
+                    <p>
+                        <button @click="filler_page(item)">更新</button>
+                    </p>
+                    <p>
+                        <button @click="[setbook(item.id),item.new_book = !item.new_book]"
+                                :class="[item.new_book?'newB':'oldB']">设置为新书
+                        </button>
+                    </p>
+                    <p>
+                        <button @click="[set_hot_book(item.id),item.hot_book=!item.hot_book]"
+                                :class="[item.hot_book?'newB':'oldB']">设置为热书
+                        </button>
+                    </p>
+                    <p>
+                        <button @click="[set_tex_book(item.id),item.tex_book= !item.tex_book]"
+                                :class="[item.tex_book?'newB':'oldB']">设置为电子书
+                        </button>
+                    </p>
+                </div>
             </div>
-            <div class="x-right">
-                <p>书名: {{item.title}}</p>
-                <p>作者: {{item.author}}</p>
-                <p>价格: {{item.price}}</p>
-                <p>ID: {{item.id}}</p>
-                <p>内容简介: {{item.content}}</p>
-            </div>
-            <div class="x_right">
-                <p>
-                    <button @click="trigger('to_del',item.id)">删除</button>
-                </p>
-                <p>
-                    <button @click="filler_page(item)" >更新</button>
-                </p>
-                <p>
-                    <button @click="[setbook(item.id),item.new_book = !item.new_book]" :class="[item.new_book?'newB':'oldB']">设置为新书</button>
-                </p>
-                <p>
-                    <button @click="[set_hot_book(item.id),item.hot_book=!item.hot_book]" :class="[item.hot_book?'newB':'oldB']">设置为热书</button>
-                </p>
-                <p>
-                    <button @click="[set_tex_book(item.id),item.tex_book= !item.tex_book]" :class="[item.tex_book?'newB':'oldB']">设置为电子书</button>
-                </p>
-            </div>
-        </div>
         </div>
         <div class="one_2">
             <h3>新书列表</h3>
@@ -186,6 +254,7 @@
 <script src="local.js"></script>
 <script src="admin.js"></script>
 <script src="home.js"></script>
+<script src="shopping.js"></script>
 <script src="vue-router.js"></script>
 
 

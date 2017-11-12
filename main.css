@@ -32,13 +32,13 @@ body {
 
 }
 
-a {
+.nav-select a {
     color: #f3f3f3;
     padding: 11px 20px;
     text-decoration: none;
 }
 
-a:hover {
+.nav-select a:hover {
     color: white;
     background-color: #d0d0d0;
 }
@@ -195,14 +195,81 @@ textarea {
     color: white;
     background-color: #717171;
 }
-
-
-
-
-
-
-
-
+/*.......................*/
+.wrapper_2 {
+    width:202px;
+    font-size: 0;
+    margin-top: 2px;
+    overflow: hidden;
+    display: inline-block;
+    margin-right: 10px;
+    margin-left: 7px;
+    background-color: #f4f4f4;
+}
+.col-row{
+    width: 200px;
+    height:210px;
+    display: inline-block;
+    font-size: 14px;
+    /*background-color: red;*/
+    margin-bottom: 10px;
+}
+.col-row .t-book{
+    width: 120px;
+    height:150px;
+    /*background-color: #ff607b;*/
+    margin: 5px auto;
+}
+.col-row .tt-book{
+    text-align: center;
+    margin-top: 10px;
+}
+.col-row .ttt-book{
+    margin-top: 5px;
+    text-align: center;
+}
+.col-row .ttt-book span{
+    font-size: 18px;
+}
+.col-row .t-book img{
+    width: 120px;
+    height: 150px;
+}
+#add_button,
+#add_button_1,
+#add_button_2{
+    width: 40px;
+    height:25px;
+    position: static;
+    background-color: #f04e51;
+}
+#add_button:hover,
+#add_button_1:hover,
+#add_button_2:hover{
+    background-color: red;
+}
+.yyj{
+    font-size: 20px;
+    color: #fbfbfb;
+}
+.book-in{
+    margin-top: 3px;
+    border: 1px solid #aaaaaa;
+    background-color: #f4f4f4;
+}
+.book-in p:nth-child(1){
+    color: #434343;
+    padding-top: 20px;
+}
+.book-in p:nth-child(2){
+    color: #aaaaaa;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.book-in p:nth-child(3){
+    color: #6e6e6e;
+    padding-bottom: 20px;
+}
 
 
 
