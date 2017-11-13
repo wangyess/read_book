@@ -89,6 +89,9 @@
             Event.$on('add_shop_l',function (id) {
                 me.add_shop_list(id);
             });
+            Event.$on('del_shop_l',function (id) {
+                me.del_shop_list_item(id);
+            });
         },
         methods: {
             //...................................让后台获取到product_list
@@ -226,8 +229,22 @@
                      this.shop_list.push(Object.assign({},this.product_list[item_index]));
                  }
             },
+            del_shop_list_item:function (id) {
+                var index=this.search_shop_list(id);
+                console.log(index);
+                if(index!==-1){
+                    this.shop_list.splice(index,1);
+                }
+            },
             up_add_shop_list:function () {
                 s.set('shop_list',this.shop_list);
+            },
+            search_shop_list:function (id) {
+                return this.shop_list.findIndex(function (item) {
+                    if(item.id===id){
+                        return true;
+                    }
+                })
             }
         },
         watch: {

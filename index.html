@@ -90,7 +90,7 @@
                 <hr>
                 <div class="ttt-book">
                     <span>$: {{item.price}}</span> &nbsp;
-                    <button id="add_button_1" type="button"><i class="fa fa-shopping-cart yyj"></i></button>
+                    <button id="add_button_1" type="button" @click="add_shop(item.id)"><i class="fa fa-shopping-cart yyj"></i></button>
                 </div>
             </div>
         </div>
@@ -110,7 +110,7 @@
                 <hr>
                 <div class="ttt-book">
                     <span>$: {{item.price}}</span> &nbsp;
-                    <button id="add_button_2" type="button"><i class="fa fa-shopping-cart yyj"></i></button>
+                    <button id="add_button_2" type="button" @click="add_shop(item.id)"><i class="fa fa-shopping-cart yyj"></i></button>
                 </div>
             </div>
         </div>
@@ -126,9 +126,9 @@
                 <p>书名: {{item.title}}</p>
                 <p>作者: {{item.author}}</p>
                 <p>价格: {{item.price}}</p>
-                <p>ID: {{item.id}}</p>
                 <p>内容简介: {{item.content}}</p>
             </div>
+            <button type="button" id="del_button" @click="del_shop(item.id)"> X </button>
         </div>
     </div>
 </template>

@@ -271,6 +271,16 @@ textarea {
     padding-bottom: 20px;
 }
 
+#del_button{
+    color: #636363;
+    position:relative;
+    width: 30px;
+    height: 20px;
+    top:20px;
+    left: 100px;
+    font-size: 16px;
+}
+
 
 
 

@@ -11,7 +11,9 @@
 
         },
         methods: {
-
+           del_shop:function (id) {
+               Event.$emit('del_shop_l',id);
+           }
         }
     }
 })();
