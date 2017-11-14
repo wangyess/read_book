@@ -4,9 +4,9 @@
     var sign_in = {
         template: '#tpl-sign-page'
     };
-    var login = {
-        template: '#tpl-login-page'
-    };
+    // var login = {
+    //     template: '#tpl-login-page'
+    // };
     //..............................................路由
     var routes = [
         {
@@ -47,9 +47,14 @@
             //电子书
             tex_book_list: [],
             //购物车
-            shop_list:[]
+            shop_list: [],
+            //详情
+            detail_list: []
         },
         mounted: function () {
+            //全部商品
+            this.product_list = s.get('product_list') || [];
+            this.product_last_id = s.get('product_last_id') || 0;
             //新书
             this.new_book_list = s.get('new_book_list') || [];
             //热书
@@ -57,10 +62,9 @@
             //电子书
             this.tex_book_list = s.get('tex_book_list') || [];
             //购物车
-            this.shop_list=s.get('shop_list') || [];
-            //全部商品
-            this.product_list = s.get('product_list') || [];
-            this.product_last_id = s.get('product_last_id') || 0;
+            this.shop_list = s.get('shop_list') || [];
+            //详情
+            this.detail_list = s.get('detail_list') || [];
             // this.protal();
             var me = this;
             Event.$on('add_up', function (data) {
@@ -86,12 +90,18 @@
                 me.set_tex_book_list(id);
             });
             //购物车
-            Event.$on('add_shop_l',function (id) {
+            Event.$on('add_shop_l', function (id) {
                 me.add_shop_list(id);
             });
-            Event.$on('del_shop_l',function (id) {
+            Event.$on('del_shop_l', function (id) {
                 me.del_shop_list_item(id);
             });
+            //detail
+            Event.$on('find_re', function (data) {
+                console.log('2');
+                me.search_detail_item(data);
+                // Event.$off('find_re');
+            })
         },
         methods: {
             //...................................让后台获取到product_list
@@ -223,28 +233,44 @@
             },
 
             //............................................购物车
-            add_shop_list:function (id) {
-                 var item_index=this.find_index(id);
-                 if(item_index!==-1){
-                     this.shop_list.push(Object.assign({},this.product_list[item_index]));
-                 }
-            },
-            del_shop_list_item:function (id) {
-                var index=this.search_shop_list(id);
-                console.log(index);
-                if(index!==-1){
-                    this.shop_list.splice(index,1);
+            add_shop_list: function (id) {
+                var item_index = this.find_index(id);
+                if (item_index !== -1) {
+                    this.shop_list.push(Object.assign({}, this.product_list[item_index]));
                 }
             },
-            up_add_shop_list:function () {
-                s.set('shop_list',this.shop_list);
+            del_shop_list_item: function (id) {
+                var index = this.search_shop_list(id);
+                console.log(index);
+                if (index !== -1) {
+                    this.shop_list.splice(index, 1);
+                    this.up_add_shop_list();
+                    Event.$emit('del_success');
+                }
             },
-            search_shop_list:function (id) {
+            up_add_shop_list: function () {
+                s.set('shop_list', this.shop_list);
+            },
+            search_shop_list: function (id) {
                 return this.shop_list.findIndex(function (item) {
-                    if(item.id===id){
+                    if (item.id === id) {
                         return true;
                     }
                 })
+            },
+            //..............................................详情
+            search_detail_item: function (id) {
+                var detail_item_index = this.find_index(id);
+                if (detail_item_index !== -1) {
+                    this.detail_list = [];
+                    console.log(this.detail_list);
+                    this.detail_list.push(Object.assign({}, this.product_list[detail_item_index]));
+                    // this.detail_list=a;
+                    // Event.$off('find_re');
+                }
+            },
+            up_detail: function () {
+                s.set('detail_list', this.detail_list);
             }
         },
         watch: {
@@ -272,10 +298,16 @@
                     this.up_tex_book_list();
                 }
             },
-            shop_list:{
-                deep:true,
-                handler:function () {
+            shop_list: {
+                deep: true,
+                handler: function () {
                     this.up_add_shop_list();
+                }
+            },
+            detail_list: {
+                deep: true,
+                handler: function () {
+                    this.up_detail();
                 }
             }
         }

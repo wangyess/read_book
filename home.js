@@ -13,17 +13,15 @@
             }
         },
         mounted: function () {
+            this.product_list_all = s.get('product_list');
+            this.new_book_l = s.get('new_book_list');
+            this.hot_book_l = s.get('hot_book_list');
+            this.tex_book_l = s.get('tex_book_list');
             var me = this;
             Event.$on('result_all', function (a) {
                 me.search_result = a;
                 me.input_item = '';
             });
-            // Event.$on('receive', function (a, b, h, t) {
-            //     me.product_list_all = a;
-            //     me.new_book_l = b;
-            //     me.hot_book_l = h;
-            //     me.tex_book_l = t;
-            // })
         },
         methods: {
             search: function (data) {
@@ -31,6 +29,11 @@
             },
             add_shop: function (data) {
                 Event.$emit('add_shop_l', data);
+            },
+            detail_info: function (data) {
+                console.log('1');
+                Event.$emit('find_re', data);
+                console.log('3');
             }
         }
     };
